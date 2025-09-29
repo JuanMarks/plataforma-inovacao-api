@@ -27,6 +27,7 @@ model Company {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ideas Idea[]
+  connections Connection[]
 }
 
 model User {
@@ -68,6 +69,7 @@ model Challenge {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ideas Idea[]
+  connections Connection[]
 }
 
 enum FunnelStage {
@@ -125,4 +127,38 @@ model Startup {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  connections Connection[]
+}
+
+// --- INÍCIO DAS NOVAS ADIÇÕES ---
+
+// Enum para o status da conexão
+enum ConnectionStatus {
+  NENHUM
+  INTERESSE
+  CONVIDADA
+  POC
+  REJEITADA
+}
+
+// Modelo para a Conexão entre Desafio e Startup
+model Connection {
+  id        String   @id @default(uuid())
+  status    ConnectionStatus @default(NENHUM)
+  
+  // Relações
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  startupId String
+  startup   Startup   @relation(fields: [startupId], references: [id])
+  
+  companyId String // Para saber a qual empresa pertence a conexão
+  company   Company  @relation(fields: [companyId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Garante que só pode haver uma conexão entre um desafio e uma startup
+  @@unique([challengeId, startupId])
 }

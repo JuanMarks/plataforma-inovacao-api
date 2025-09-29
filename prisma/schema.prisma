@@ -101,3 +101,28 @@ model Idea {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+enum StartupStage {
+  IDEACAO
+  OPERACAO
+  TRACAO
+  ESCALA
+}
+
+// Modelo para as Startups
+model Startup {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  cnpj        String?  @unique
+  segment     String   // Segmento de atuação, ex: FinTech
+  problem     String   // Problema que resolve
+  technology  String   // Tecnologias utilizadas
+  stage       StartupStage @default(IDEACAO)
+  location    String?
+  founders    String?
+  pitch       String?
+  website     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

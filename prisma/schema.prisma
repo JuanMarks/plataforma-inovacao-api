@@ -26,6 +26,7 @@ model Company {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  ideas Idea[]
 }
 
 model User {
@@ -39,6 +40,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  ideas Idea[]
 }
 
 
@@ -62,6 +64,39 @@ model Challenge {
   
   companyId String
   company   Company  @relation(fields: [companyId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ideas Idea[]
+}
+
+enum FunnelStage {
+  CAPTURE
+  PRE_SCREENING
+  IDEATION
+  DETAILED_SCREENING
+  POC
+  ARCHIVED
+}
+
+// Modelo para as Ideias
+model Idea {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  stage       FunnelStage @default(CAPTURE)
+  priority    String   // Ex: "Alta", "Média", "Baixa"
+  votes       Int      @default(0)
+
+  // Relações
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+  
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

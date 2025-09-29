@@ -19,16 +19,16 @@ export class StartupsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.startupsService.findOne(+id);
+    return this.startupsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStartupDto: UpdateStartupDto) {
-    return this.startupsService.update(+id, updateStartupDto);
+    return this.startupsService.update(id, updateStartupDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.startupsService.remove(+id);
+    return this.startupsService.remove(id);
   }
 }

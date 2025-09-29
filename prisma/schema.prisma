@@ -42,6 +42,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ideas Idea[]
+  comments Comment[] 
 }
 
 
@@ -102,6 +103,7 @@ model Idea {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  comments Comment[] 
 }
 
 enum StartupStage {
@@ -161,4 +163,19 @@ model Connection {
 
   // Garante que só pode haver uma conexão entre um desafio e uma startup
   @@unique([challengeId, startupId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  
+  // Relações
+  ideaId    String
+  idea      Idea     @relation(fields: [ideaId], references: [id])
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

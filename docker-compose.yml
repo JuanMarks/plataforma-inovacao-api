@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Serviço da API NestJS
+  api:
+    build: .
+    container_name: inovacao-api
+    ports:
+      - "3000:3000"
+    environment:
+      # A URL da base de dados aponta para o serviço 'db' abaixo
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/plataforma_inovacao?schema=public
+    depends_on:
+      - db
+
+  # Serviço da Base de Dados PostgreSQL
+  db:
+    image: postgres:15
+    container_name: inovacao-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: plataforma_inovacao
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

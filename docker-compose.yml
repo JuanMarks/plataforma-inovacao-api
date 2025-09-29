@@ -1,22 +1,12 @@
 version: '3.8'
 
 services:
-  # Serviço da API NestJS
-  api:
-    build: .
-    container_name: inovacao-api
-    ports:
-      - "3000:3000"
-    environment:
-      # A URL da base de dados aponta para o serviço 'db' abaixo
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/plataforma_inovacao?schema=public
-    depends_on:
-      - db
-
   # Serviço da Base de Dados PostgreSQL
   db:
     image: postgres:15
     container_name: inovacao-db
+    # A linha 'ports' é a mais importante aqui. Ela expõe a porta 5432
+    # do contentor para a porta 5432 da sua máquina (localhost).
     ports:
       - "5432:5432"
     environment:
@@ -28,3 +18,5 @@ services:
 
 volumes:
   pgdata:
+    # Garante que o volume não seja removido quando o contentor parar
+    name: inovacao-pgdata

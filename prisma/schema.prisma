@@ -21,7 +21,8 @@ enum Role {
 model Company {
   id    String @id @default(uuid())
   name  String
-  users User[] // Relação: Uma empresa pode ter vários utilizadores
+  users User[]
+  challenges Challenge[] // Relação: Uma empresa pode ter vários desafios
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,8 +32,34 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String
-  password  String   // A senha será guardada como um hash
+  password  String
   role      Role     @default(COMUM)
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+// --- INÍCIO DAS NOVAS ADIÇÕES ---
+
+// Enum para o tipo de desafio
+enum ChallengeType {
+  INTERNO
+  PUBLICO
+}
+
+// Modelo para os Desafios
+model Challenge {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  area        String
+  startDate   DateTime
+  endDate     DateTime
+  type        ChallengeType @default(INTERNO)
+  
   companyId String
   company   Company  @relation(fields: [companyId], references: [id])
 

@@ -9,9 +9,10 @@ import { StartupsModule } from './startups/startups.module';
 import { ConnectionsModule } from './connections/connections.module';
 import { CommentsModule } from './comments/comments.module';
 import { AuthModule } from './auth/auth.module';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, ChallengesModule, IdeasModule, StartupsModule, ConnectionsModule, CommentsModule, AuthModule],
+  imports: [UsersModule, PrismaModule, ChallengesModule, IdeasModule, StartupsModule, ConnectionsModule, CommentsModule, AuthModule, CompaniesModule],
   controllers: [AppController],
   providers: [AppService],
 })

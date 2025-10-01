@@ -6,8 +6,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('companies') // Agrupa os endpoints no Swagger
-@ApiBearerAuth() // Indica que precisa de token JWT
-@UseGuards(JwtAuthGuard) // Protege todos os endpoints deste controlador
+// @ApiBearerAuth() // Indica que precisa de token JWT
+// @UseGuards(JwtAuthGuard) // Protege todos os endpoints deste controlador
 @Controller('companies')
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}

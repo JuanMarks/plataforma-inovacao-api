@@ -11,6 +11,12 @@ export class ConnectionsService {
     return this.prisma.connection.create({ data: createConnectionDto });
   }
 
+  findAll() {
+    return this.prisma.connection.findMany({
+      include: { startup: true, challenge: true },
+    });
+  }
+
   // Encontra todas as conexões de um desafio específico
   findAllByChallenge(challengeId: string) {
     return this.prisma.connection.findMany({

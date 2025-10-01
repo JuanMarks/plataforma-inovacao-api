@@ -11,6 +11,11 @@ async function bootstrap() {
 
   // --- INÍCIO DA CONFIGURAÇÃO DO SWAGGER ---
 
+  app.enableCors({
+    origin: ['http://localhost:3001',], // Substitua pelos domínios permitidos
+    credentials: true,
+  });
+
   // 1. Crie a configuração do documento
   const config = new DocumentBuilder()
     .setTitle('Plataforma de Inovação Aberta - API')

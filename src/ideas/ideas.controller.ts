@@ -23,6 +23,11 @@ export class IdeasController {
     return this.ideasService.findOne(id);
   }
 
+  @Get('challenge/:challengeId')
+  findAllByChallenge(@Param('challengeId') challengeId: string) {
+    return this.ideasService.findAllByChallenge(challengeId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIdeaDto: UpdateIdeaDto) {
     return this.ideasService.update(id, updateIdeaDto);

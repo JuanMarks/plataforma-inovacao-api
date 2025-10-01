@@ -15,6 +15,16 @@ export class ConnectionsController {
   // O método findAll() genérico foi removido.
   // Em vez dele, usamos um mais específico, se necessário, como findAllByChallenge.
 
+   @Get()
+  findAll() {
+    return this.connectionsService.findAll();
+  }
+
+  @Get('challenge/:challengeId')
+  findAllByChallenge(@Param('challengeId') challengeId: string) {
+    return this.connectionsService.findAllByChallenge(challengeId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     // CORREÇÃO: Removido o '+'
